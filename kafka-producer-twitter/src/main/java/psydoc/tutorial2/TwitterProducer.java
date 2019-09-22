@@ -7,7 +7,6 @@ import com.twitter.hbc.core.Constants;
 import com.twitter.hbc.core.Hosts;
 import com.twitter.hbc.core.HttpHosts;
 import com.twitter.hbc.core.endpoint.StatusesFilterEndpoint;
-import com.twitter.hbc.core.event.Event;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
 import com.twitter.hbc.httpclient.auth.Authentication;
 import com.twitter.hbc.httpclient.auth.OAuth1;
@@ -32,7 +31,7 @@ public class TwitterProducer {
     String token = "token";
     String secret = "secret";
 
-    List<String> terms = Lists.newArrayList("modi","trump");
+    List<String> terms = Lists.newArrayList("modi","trump","usa","sports","anime");
 
     private static final String BOOTSTRAP_SERVERS = "127.0.0.1:9092";
 
@@ -115,6 +114,18 @@ public class TwitterProducer {
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+        //create safe producer
+        properties.setProperty(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+        properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
+        properties.setProperty(ProducerConfig.RETRIES_CONFIG, String.valueOf(Integer.MAX_VALUE));
+        properties.setProperty(ProducerConfig.MAX_BLOCK_MS_CONFIG, "5"); // kafka 2.0 >= 1.1 so we can
+        // keep this as 5. Use 1 otherwise.
+
+        //high throughput producer (at the expense of a bit of latency and CPU usage)
+        properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+        properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "20");
+        properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32*1024));//32 KB batch size
 
         //create producer
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
