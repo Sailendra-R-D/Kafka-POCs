@@ -1,4 +1,4 @@
-package com.github.sailendra;
+package com.github.psydoc.tutorial1;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -12,9 +12,9 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
-public class ConsumerDemo {
+public class ConsumerDemoGroups {
     public static void main(String[] args) {
-        Logger logger = LoggerFactory.getLogger(ConsumerDemo.class.getName());
+        Logger logger = LoggerFactory.getLogger(ConsumerDemoGroups.class.getName());
 
         //create consumer config
         Properties properties  =new Properties();
@@ -35,8 +35,8 @@ public class ConsumerDemo {
            ConsumerRecords<String,String> records = consumer.poll(Duration.ofMillis(100));
 
            for(ConsumerRecord<String,String> record :records){
-                logger.info("Key : " +record.key()+" , Value : "+record.value());
-                logger.info("Partition: "+record.partition()+" , Offset: "+record.offset());
+                logger.info("Key : " +record.key()+", Value : "+record.value());
+                logger.info("Partition: "+record.partition()+", Offset: "+record.offset());
            }
         }
     }

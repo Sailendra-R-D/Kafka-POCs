@@ -1,4 +1,4 @@
-package com.github.sailendra;
+package com.github.psydoc.tutorial1;
 
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -6,9 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
-import java.util.concurrent.ExecutionException;
 
-public class ProducerDemoKeys {
+public class ProducerCallbackDemo {
     private static final String BOOTSTRAP_SERVERS = "127.0.0.1:9092";
 
     public static void main(String[] args) {
@@ -25,16 +24,9 @@ public class ProducerDemoKeys {
 
         for (int i = 1; i < 20; i++) {
             //create a producer record
-
-            String topic = "first_topic";
-            String value = String.format("hello world_%s",i);
-            String key = String.format("id_%s",i);
-
-            final ProducerRecord<String, String> record = new ProducerRecord<>(topic,key,value);
-            logger.info("key :"+key);
-
+            final ProducerRecord<String, String> record = new ProducerRecord<>("first_topic", String.format("hello world_%s",i));
             //send data - asynchronous
-            producer.send(record, (RecordMetadata recordMetadata, Exception e)->{
+            producer.send(record, (RecordMetadata recordMetadata, Exception e) ->{
                     //here executes everytime
                     if (e == null) {
                         //record sent successfully
@@ -47,10 +39,8 @@ public class ProducerDemoKeys {
                     } else {
                         logger.error("error while producing ", e);
                     }
-
                 }
             );
-                    //.get(); // this blocks .send() to make it synchronous -don't do this in production
         }
         //flush data
         producer.flush();

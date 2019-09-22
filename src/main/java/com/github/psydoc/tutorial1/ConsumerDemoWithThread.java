@@ -1,4 +1,4 @@
-package com.github.sailendra;
+package com.github.psydoc.tutorial1;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
