@@ -32,6 +32,7 @@ public class ElasticSearchConsumer {
     private static final String HOST_NAME = "host";
     private static final String USER_NAME = "user";
     private static final String PASSWORD = "passwd";
+    private static JsonParser jsonParser = new JsonParser();
 
     public static RestHighLevelClient createClient() {
         //don't do if you run a local ES
@@ -132,8 +133,6 @@ public class ElasticSearchConsumer {
         consumer.subscribe(Arrays.asList(topic));
         return consumer;
     }
-
-    private static JsonParser jsonParser = new JsonParser();
 
     private static String extractIdFromTweets(String tweetJson) {
         //gson library
