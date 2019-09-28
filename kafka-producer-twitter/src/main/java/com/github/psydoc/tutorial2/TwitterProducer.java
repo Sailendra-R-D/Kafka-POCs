@@ -26,12 +26,12 @@ import java.util.concurrent.TimeUnit;
 
 public class TwitterProducer {
 
-    String consumerKey = "key";
-    String consumerSecret = "secret";
-    String token = "token";
-    String secret = "secret";
+    private final String consumerKey = "key";
+    private final  String consumerSecret = "secret";
+    private final String token = "token";
+    private final String secret = "secret";
 
-    List<String> terms = Lists.newArrayList("modi","trump","usa","sports","anime");
+    List<String> terms = Lists.newArrayList("luffy");
 
     private static final String BOOTSTRAP_SERVERS = "127.0.0.1:9092";
 
