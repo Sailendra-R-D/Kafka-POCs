@@ -31,7 +31,7 @@ public class TwitterProducer {
     private final String token = "token";
     private final String secret = "secret";
 
-    List<String> terms = Lists.newArrayList("luffy");
+    List<String> terms = Lists.newArrayList("sports");
 
     private static final String BOOTSTRAP_SERVERS = "127.0.0.1:9092";
 
