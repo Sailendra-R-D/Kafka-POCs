@@ -11,7 +11,7 @@ public class ProducerDemoKeys {
     private static final String BOOTSTRAP_SERVERS = "127.0.0.1:9092";
 
     public static void main(String[] args) {
-        final Logger logger = LoggerFactory.getLogger(ProducerCallbackDemo.class);
+        final Logger logger = LoggerFactory.getLogger(ProducerDemoKeys.class);
 
         //create Producer properties
         Properties properties = new Properties();
